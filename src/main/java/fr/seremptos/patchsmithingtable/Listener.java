@@ -2,6 +2,7 @@ package fr.seremptos.patchsmithingtable;
 
 import com.viaversion.viaversion.api.Via;
 import com.viaversion.viaversion.api.ViaAPI;
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.kyori.adventure.sound.Sound;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -37,7 +38,7 @@ public class Listener implements org.bukkit.event.Listener {
         //Ne marche que sur les 1.20+
         ViaAPI api = Via.getAPI();
         int version = api.getPlayerVersion(player);
-        if(version < 763) return;
+        if(version < ProtocolVersion.v1_20.getVersion()) return;
         //
         if(event.getAction() == Action.RIGHT_CLICK_BLOCK && event.getClickedBlock().getType() == Material.SMITHING_TABLE){
             LegacySmithingTable smithingTable = new LegacySmithingTable();

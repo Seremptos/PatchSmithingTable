@@ -20,7 +20,6 @@ import org.bukkit.inventory.ItemStack;
 import java.util.*;
 
 public class Listener implements org.bukkit.event.Listener {
-
     List<Material> authorizedDiamond = Arrays.asList(
             Material.DIAMOND_SWORD,
             Material.DIAMOND_AXE,
@@ -49,11 +48,10 @@ public class Listener implements org.bukkit.event.Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event){
-        if(event.isShiftClick()) event.setCancelled(true);
         Player player = (Player) event.getWhoClicked();
-        Inventory inventory = event.getClickedInventory();
-        if(inventory == null) return;
+        Inventory inventory = player.getOpenInventory().getTopInventory();
         if(inventory.getHolder() instanceof LegacySmithingTable smithingTable){
+            if(event.isShiftClick()) event.setCancelled(true);
             if(inventory.getItem(0) == null || inventory.getItem(1) == null){
                 inventory.setItem(2, null);
             }
@@ -90,6 +88,10 @@ public class Listener implements org.bukkit.event.Listener {
                 break;
             case 2:
                 if(event.getCurrentItem() != null){
+                    if(event.getCursor().getType() != Material.AIR){
+                        event.setCancelled(true);
+                        return;
+                    }
                     inventory.setItem(0, inventory.getItem(0).add(-1));
                     inventory.setItem(1, inventory.getItem(1).add(-1));
                     player.playSound(Sound.sound(org.bukkit.Sound.BLOCK_SMITHING_TABLE_USE, Sound.Source.BLOCK, 1, 0.9f));

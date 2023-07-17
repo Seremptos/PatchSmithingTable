@@ -49,11 +49,12 @@ public class Listener implements org.bukkit.event.Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event){
-        if(event.isShiftClick()) event.setCancelled(true);
         Player player = (Player) event.getWhoClicked();
         Inventory inventory = event.getClickedInventory();
         if(inventory == null) return;
         if(inventory.getHolder() instanceof LegacySmithingTable smithingTable){
+            if(event.isShiftClick()) event.setCancelled(true);
+
             if(inventory.getItem(0) == null || inventory.getItem(1) == null){
                 inventory.setItem(2, null);
             }

@@ -63,6 +63,7 @@ public class Listener implements org.bukkit.event.Listener {
 
                     if(!authorizedDiamond.contains(material) && material != Material.AIR){
                         event.setCancelled(true);
+                        return;
                     }
                     if (inventory.getItem(1) != null) {
                         ItemStack item2 = event.getCursor().clone();
@@ -78,6 +79,7 @@ public class Listener implements org.bukkit.event.Listener {
                     }else{
                         Bukkit.getScheduler().runTaskLater(PatchSmithingTable.plugin, () -> inventory.setItem(2, null), 1L);
                     }
+                    return;
                 }
                 if(inventory.getItem(0) != null){
                     ItemStack item = inventory.getItem(0).clone();

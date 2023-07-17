@@ -1,0 +1,6 @@
+name: PatchSmithingTable
+version: '${project.version}'
+main: fr.seremptos.patchsmithingtable.PatchSmithingTable
+api-version: '1.19'
+depend:
+  - ViaVersion
